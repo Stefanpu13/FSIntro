@@ -1,0 +1,217 @@
+F# Presentation agenda
+What is the main idea/goal?
+To make people interested in fSharp, or at least leanrning another language that has similar features
+
+I. General overview of the presentation - intro to f# in the light of javascript and c#
+
+II. Plan
+
+1. What is most important to you? (Кое е най-ванжното) - Да ядеш на уя блажното :)
+ What is most important feature of C#
+
+	My efforts:  
+		- create plan for the presentation
+		- practice the presentation to see how much time it takes
+		- create the voting app, deploy and make it visible
+		- recompile the presentation after voting is finished
+	
+	Presetation view:
+		Slide 1 -> guestion(What is most important feature of C#) + link to voting app (10 mins)
+
+		Slide 3 (C#7 features - main message  - 
+		C# has been getting features that are part of other languages, since version 2)
+		(Some of those languages are so called "functional" languages)
+		
+		
+	
+	Q: How to make the switch between c# and the need to look at f#?
+		1.(Slide 4) C# is getting more expressive and functional? It seems so...
+			2. Then why bother learn other language, even more functional one, at all?
+				1. What is functional anyway?
+					Def: A style of programming where the basic method of computation is application of functions to arguments. 
+					Q: What other styles we know? Style of programming where the basic method of computation is changing of state
+					through statements AKA imperative. 
+					
+				2. Langauges like C# make it possible to write code in functional style. But it is hard and
+				these languages do not encourage and facilitate writing in functional style
+					2.1 Features that are just coming are not natural to the language or not complete
+					Natural: Local functions; pattern matching, destructuring, AGT
+					Not complete: (patern matching, destructuring, AGT(algebraic data types))
+						2.1.1. Since Features are not natural you will gain only limited understaing of their use, pros/cons
+					or you will hear the (somewhat correct) advice: "Do not use that" this is bad practice/dangerous
+					
+					2.2 You will not see the every-day task/problems solved with 
+					those features (best example - higher order filter, map, iter, vs their loop equivalents)
+					Beginning C#, Java, etc. programmers are not taught these languages in functional style
+					(The first things you learn is reading and writing to console, and asigning to variables.
+					After that: if, swith, statements come, while, for, statements)
+					
+				3. "A language that doesn't affect the way you think about programming, is not worth knowing." Alan Perlis
+					Java (object oriented, statically typed, garbage collected languages, will not significatly affect the way you think)
+					
+					3.1. Thinking about problems in new ways. Different approach, different view of the world (not better, but different) 				
+			
+		(Slide 5 Why F#?)
+			1. Personal (1-2 min)
+				a. have heard that F# is used in competitive industry as finance, where tooling can give edge
+				b. I friend of mine who is doctor of CS speaks with great love of F#
+				c. I liked how simple some things are with javascript/jquery/lodash, and especially liked 
+				the lodash higher order functions
+				d. I disliked how every class that I`ve seen eventually becomes uncoherent bag of methods
+				(It looked to me as a module( from the JS module pattern))
+
+			2. "Techical" (to the extend these can be called techincal)(1-2 min) - 
+				a. I wanted the language to be used in some industry ( opposed to research languages)
+				and be somewhat mature(Lisp family(Closure, Scheme, LISP), Scala, Haskell, FSharp, Ocaml, Erlang)
+				b. I did not like LISP family syntax (Scala, Haskell, FSharp, Ocaml, Erlang)
+				c. I was afraid that diving into pure FP might be to much effort (Scala, FSharp, Ocaml, Erlang)
+				d. I wanted to have language that is used on a popular platform, where a lot libraries exist(Scala, FSharp)
+				e. I preffered F# due to familiarity with platform 
+					(learning new platform and new paradigm and algoritms and data structures could be too much to handle) 
+					
+		(Slide 6 F# - Wikipedia)
+			a. mature
+			b. functional-first
+			c. cross-platform
+			d. open-source
+			e. implementation of Ocaml on .Net
+	
+		(Slide 7 - More features)
+			a. statically typed
+			a. with type inference
+			b. immutable by default
+			c. exression oriented
+			d. compatible with other .NET languages
+			
+		
+		(Slide 8 - First steps)
+			- The REPL (enter a few simple values and and say that you will be using Alt + Enter)
+			- No variables - only immutable bindings (explain output on the REPL (val it : int = 4); 
+			Common form - val "identificator" : "type" = "value")
+			- (value) bindings have types
+				- primitive (string , int float)
+				- more complex = list, array, seq, tuple 
+				- the Unit type
+		(Slide 9 functions - main properties in theory)
+			- No Side effects
+			- same output for same input
+			- Has exacly one input and one output
+		(Slide 10 Demo first steps - functions, values, compiler, expressions in F#)
+			- (almost)everything is expression(what is the difference between statement and expression)
+				pros: -> 
+					- expressions are composable(will see in a while)
+					- easier to inspect independently
+					- easier to refactor (imagine long if statement where not all branches return - can not easily extract it to a functions)
+				cons: almost any
+				
+				since everything is expression, there is no return statement - the output of a function is the last expression
+			- function bindings
+				- also have types (form val "indentificator" : "ident1": "inputType1" -> ... -> "identN": "outputType")
+				- different types
+				- seeing the unit type in a function signature - a-> unit or unit -> a :
+				    means that the function is doing site effects
+			- Generic params (compiler tries to infer the most generic type). Generucs are fully supported
+			- higher order functions (functions that return functions or functions that receive other functions as params)
+			- partial application				
+				
+		(Slide 11 - Demo (Access to .NET))
+			- short description of the problem to solve - just write some names to a file
+			- mutable arrays - syntax;  not idiomatic structure for functional programming but best for the goal
+			- local functions to keep code closer to where it is declared
+			- binding can contain
+			- everythng is expression if then - else is the analog of the thernaly operator; 
+				all paths must return the same value
+			- Writing to a file - easy interoperability
+		(Slide 12 - Demo more basics, read the data written to the fail and do some stuff)
+			- record similar to POCO, POJO, Javascript plain objects
+			- type inference needs help with 'dot' notation (objects`members)
+			- partial application
+				- first-class function can be bint to identifier 
+				- Partial application helps in specializing functions
+				- ease of creating small functions improves readability 
+				(remember magic strings, numbers. Same with functions)
+				- gives us control over when to get result
+			- declare getPerson (with and without lambda)
+			- read the file into personInfos
+			- make simple transformation and query of the data	
+				    get people with 3th most met first name ordered by age and displayed:
+    				(Name: LastName, FirstName; Age: age)
+
+					- simple helper functions
+					- more specialization and readibility with 'getFirstAndLastName'
+					- get people with third most common name
+					- "display format" function
+					- get result
+		(Slide 13 can we do "better" - refactoring code, the pipeline operator)
+			- inflix / postfix
+			- our first library - ala fluent interfaces (almost :))
+			- change 'thirdMostCommonFirstNamePeople' to function
+		(Slide 14 can we improve even more?)
+			- function composition
+			- refactor "getThirdMostCommonFirstName" function
+			- refactor toDisplayFormat
+		(Slide 15 changing reqs - third most common hobbies)
+			- limitations of type inference
+			- refactor function by adding types
+		(Slide 16 problems - Core language)
+			- very different, intimidating at first 
+			- new features that have to learned
+			- very hard to fit into existing mindset
+				"It is not only the violin that shapes the violinist, 
+				we are all shaped by the tools we train ourselves to use, 
+				and in this respect programming languages have a devious influence: 
+				they shape our thinking habits."
+		(Slide 17 problems - myths negative)
+			- Only for academics: 
+				https://blogs.msdn.microsoft.com/dsyme/2011/03/15/netc-generics-history-some-photos-from-feb-1999/
+			- unpractical, nobody uses them exept scientists
+			- u should understand maths to use them
+			- FP is not good for large systems,
+			- FP is slow (not performant)
+			- function and oop are opposing 
+				(bulshit - Javascript, Scala, FSarp, O(bjective)caml)
+				(the real enemy are mutable state and poor OOP languages, 
+				which to see the world only as objects)
+		(Slide 18 problems - myths positive)
+			- OOP sucks(its actually langs like java and due, to its core, c#. 
+			Also c++ is described as huge mess, OOP in JS is ugly) and FP rules
+			- look how elegant quicksort is: 
+				tip if somebody tells you that quicksort is superelegant do no trust them
+				this is not a quicksort
+			- will solve all your problems			
+			- parallelization is much easier?
+		(Slide 19 problems - myths misc)
+			- its Haskell(pure functional language) and all the others
+				- Haskell is not the only "pure" functional language
+				- what is pure anyway? in Haskell
+			- its LISP and all the others
+				no to both - there lots of languages that have functional facilities
+			- functional programming is all about functions	
+				- not at all, it s just as much about data structures
+			- functional languages are all the same
+				- the total bullshit (same goes for OO languages, too)
+		(Slide 20 problems - communities)
+			- almost all languages have small communities relative to main OO/imprative langs
+				- lacking tooling, frameworks
+				- lacking education materials
+				- lacking enough success stories
+				- are not the first choice when introducing to programming
+		(Slide 21 problems F# specifically)
+			- seen as second-class citizen in .NET(tooling, official support) - 
+				but this attitude diminishes
+			- .NET is havoc - transitioning to open sorce
+
+		(Slide 22 what was the app built in?)
+			 front end - Vue.JS
+			 backend - ASP.NET WebAPI (using c#)
+			 azure
+
+		speaking about the app....
+
+		(Slide 23 -> ...survey results (links to relevant articles)) 
+			Visit each site and make short explanation (5-10 mins - questions might arise)
+			Some of most inportant features come from functional languages
+			(Genercis, LINQ, async style, Nullable)
+		
+		(Slides 24 -> javascript, most wanted features)
+			
