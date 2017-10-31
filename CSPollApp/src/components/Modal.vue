@@ -8,11 +8,11 @@
             <slot name="header">
               <div class="col-xs-12"><h4 class="text-center">{{feature}}</h4></div>
              <div class="col-xs-12">
-                <button class="btn btn-default pull-right" @click="$emit('close')">
+                <button class="btn btn-default pull-left" @click="$emit('close')">
                   Got it
                 </button>
-                <button class="btn btn-default pull-left">
-                  <a 
+                <button class="btn btn-default pull-right">
+                  <a
                   target="_blank"
                   :href="moreInfo">
                     More Info
@@ -76,7 +76,7 @@
   color: #42b983;
 }
 
-.modal-body {  
+.modal-body {
   height: 80%;
 }
 
