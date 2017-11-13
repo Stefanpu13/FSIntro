@@ -1,6 +1,6 @@
 <template>
   <div class="panel panel-default features">
-    <div class="panel-heading">
+    <div class="panel-heading" data-toggle="collapse" :data-target="'#collapse' + index">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" 
         v-bind:href="'#collapse' + index">
