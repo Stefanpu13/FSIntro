@@ -144,7 +144,7 @@ export default {
         debugger;
       } 
       
-      var votesWithPosition = 
+      const votesWithPosition = 
         this.votes.map((v, i) => {
             v.positionInVote = i + 1;
             return v;

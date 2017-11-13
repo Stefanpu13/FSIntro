@@ -28,7 +28,8 @@ export default {
     this.$bus.$on('increment', (text) => {
     	this.text = text;
     })
-  },
+  }, 
+
   // events:{
   //   'vot': function(msg){
   //     this.$emit('vot')

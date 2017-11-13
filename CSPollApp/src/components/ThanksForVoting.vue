@@ -39,6 +39,14 @@
           .then(successCallback);
         
       }
+    },
+    beforeRouteLeave (to, from , next) {
+      const voterId = this.$cookie.get('voterId');
+      if (voterId !== null)  {
+        next(false);
+      } else {
+        next();
+      }
     }
   }
 </script>
