@@ -48,22 +48,9 @@
             
         }
     },
-    // computed: {
-    //   featuresDragOptions () {
-    //     return  {
-    //       animation: 0,
-    //       group: {name: 'vote', put: false, pull: true},                  
-    //       ghostClass: 'ghost',    
-    //       sort: false    
-    //     };
-    //   },
-    // },
     methods: {
       onShowFeatureInfo(featureName){        
         this.$emit('showFeatureListInfo', featureName)
-      },
-      onAdd(){
-        console.log(this.version.features.length)
       }
     }    
   }

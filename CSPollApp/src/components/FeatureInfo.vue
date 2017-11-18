@@ -3,12 +3,11 @@
     <div class="modal-mask">
       <div class="modal-wrapper">
         <div class="modal-container">
-
           <div class="modal-header">
             <slot name="header">
               <div class="col-xs-12"><h4 class="text-center">{{feature}}</h4></div>
              <div class="col-xs-12">
-                <button class="btn btn-default pull-left" @click="$emit('close')">
+                <button class="btn btn-default pull-left" @click="closeFeatureInfo()">
                   Got it
                 </button>
                 <button class="btn btn-default pull-right">
@@ -21,11 +20,11 @@
               </div>
             </slot>
           </div>
-
-          <div class="modal-body">
-            <slot name="body">
-              default body
-            </slot>
+          <div class="modal-body">            
+            <pre v-highlightjs>
+              <code class="csharp">{{featuresInfo[feature].info}}
+              </code>
+            </pre>
           </div>
         </div>
       </div>
@@ -34,9 +33,21 @@
 </template>
 
 <script>
+  import featuresInfo from '../data/featuresInfo'
+
   export default {
-    name: 'modal',
+    name: 'featureInfo',
+    data() {
+      return {
+        featuresInfo
+      }      
+    },
     props: ['feature', 'moreInfo'],
+    methods:{
+      closeFeatureInfo(){
+        this.$router.go(-1);
+      }
+    }
   }
 </script>
 
@@ -49,24 +60,17 @@
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, .5);
-  /* display: table; */
   transition: opacity .3s ease;
 }
 
 .modal-wrapper {
   height: 100%;
-  /* display: table-cell; */
   vertical-align: middle;
 }
 
 .modal-container {
-  /* width: 300px; */
   height: 100%;
-  /* margin: 0px auto; */
-  /* padding: 20px 30px; */
   background-color: #fff;
-  /* border-radius: 2px; */
-  /* box-shadow: 0 2px 8px rgba(0, 0, 0, .33); */
   transition: all .3s ease;
   font-family: Helvetica, Arial, sans-serif;
 }

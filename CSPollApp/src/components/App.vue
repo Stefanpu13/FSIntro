@@ -29,13 +29,6 @@ export default {
     	this.text = text;
     })
   }, 
-
-  // events:{
-  //   'vot': function(msg){
-  //     this.$emit('vot')
-  //   }
-  // }
-
 }
 </script>
 

@@ -1,24 +1,5 @@
 <template>
-  <!-- <div class="fluid container"> -->
   <div class="app-container">
-          
-    <modal 
-    v-if="showModal" 
-    @close="showModal = false"
-    :feature="inspectedFeature"
-    :moreInfo="featuresInfo[inspectedFeature].moreInfo">
-      <!--
-        you can use custom content here to overwrite
-        default content
-      -->
-      
-      <pre v-highlightjs slot="body">
-        <code class="csharp">{{featuresInfo[inspectedFeature].info}}
-        </code>
-      </pre>
-      <!-- <h3 slot="header">custom header</h3> -->
-    </modal>
-
     <div>
       <div class="col-xs-12 col-md-6">
         <div class="panel-group" id="accordion">    
@@ -55,9 +36,6 @@
                 style="display:block; min-height:20px;">
                   <li class="list-group-item" v-for="element in votes" :key="element.order"> 
                     {{element.name}}
-                    <!-- <slot name="body">
-                      
-                    </slot> -->
                     <span 
                       class="pull-right glyphicon glyphicon-remove-circle" 
                       aria-hidden="true" 
@@ -93,7 +71,7 @@
 <script>
 import draggable from 'vuedraggable'
 import featureList from './FeatureList'
-import modal from './Modal'
+import featureInfo from './FeatureInfo'
 import csharpVersions from '../data/features'
 import featuresInfo from '../data/featuresInfo'
 
@@ -102,7 +80,7 @@ export default {
   components: {
     draggable,
     featureList,
-    modal
+    featureInfo
   },
   data () {
     return {
@@ -110,9 +88,7 @@ export default {
       featuresInfo,
       votes: [],
       editable:true,
-      delayedDragging:false,
-      showModal: false,
-      inspectedFeature:''
+      delayedDragging:false,            
     }
   },
   methods:{    
@@ -122,7 +98,7 @@ export default {
           this.csharpVersions.find((v) => v.version === feature.version);
         featureVersion.features.splice(feature.order, 0, feature);      
       }
-      
+            
       const removeFeatureFromVote = (feature) => {        
         const featurePositionInVote = 
           this.votes.findIndex((feat) => feat.name === feature.name);
@@ -133,8 +109,13 @@ export default {
       removeFeatureFromVote(feature);      
     },
     onShowFeatureInfo(featureName){
-      this.showModal = true;
-      this.inspectedFeature = featureName
+      this.$router.push({ 
+        name: 'FeatureInfo', 
+        params: { 
+          feature: featureName,
+          moreInfo:this.featuresInfo[featureName].moreInfo
+        }
+      })
     },
     submitVote() {      
       const successCallback = (voterId) => {

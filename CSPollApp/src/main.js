@@ -3,9 +3,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import VueResource from 'vue-resource'
-import App from './components/App'
-import ThanksForVoting from './components/ThanksForVoting'
-import NotFound from './components/NotFound'
+import router from './routes'
 import 'bootstrap/dist/css/bootstrap.css';
 import 'font-awesome/less/font-awesome.less';
 // import 'jquery/dist/jquery.js';
@@ -33,30 +31,11 @@ Object.defineProperties(Vue.prototype, {
   }
 })
 
-const router = new Router({  
-  mode:'history',
-  routes: [
-    {
-      path: '/',      
-      component: App
-    },
-    {
-      path: '/ThanksForVoting',      
-      component: ThanksForVoting
-    },
-    {
-      path: '*',      
-      component: NotFound
-    },
-  ]  
-});
-
 /* eslint-disable no-new */
 const app = new Vue({ 
   router,
   el: '#app',
-  data:{
-    currentRoute: window.location.pathname,
+  data:{    
     voterId: '0' 
   },
   methods:{    
