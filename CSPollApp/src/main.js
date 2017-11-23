@@ -36,7 +36,8 @@ const app = new Vue({
   router,
   el: '#app',
   data:{    
-    voterId: '0' 
+    voterId: '0',
+    storedVotes: [] 
   },
   methods:{    
     getNewVoteId(){
@@ -57,14 +58,19 @@ const app = new Vue({
 
   created() {
     this.$bus.$on('votesSubmitted', (voterId) => {
-      this.$cookie.set('voterId', voterId);      
+      this.$cookie.set('voterId', voterId);     
+      this.storedVotes = []; 
       this.$router.push("ThanksForVoting");      
     })
 
     this.$bus.$on('newVoteGranted', () => {      
-      this.$cookie.delete('voterId');
+      this.$cookie.delete('voterId');      
       this.$router.push('/');      
       this.voterId = '';
+    });
+
+    this.$bus.$on('leaveToFeaturesInfo', (votes) => {
+      this.storedVotes = votes;
     });
     
     const voterId = this.$cookie.get('voterId');

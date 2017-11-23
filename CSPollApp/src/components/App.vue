@@ -7,28 +7,47 @@
         features are most important? 
       </h2>
     </div>  
-    <hello></hello>
+    <votes 
+      :storedVotes="storedVotes"
+      v-on:votesChanged="onVotesChanged">
+    </votes>
   </div>
 </template>
 
 <script>
-import Hello from './Hello'
+import Vue from 'vue'
+import Votes from './Votes'
 
 export default {
   name: 'app',
+  data(){
+    return {      
+      storedVotes: Vue.util.extend([], this.$root.storedVotes)
+    }
+  },
   components: {
-    Hello
+    Votes
   },
   methods:{
     onVotesSubmitted(msg){
       this.$emit(msg);
+    },
+    onVotesChanged(newVotes) {      
+      this.storedVotes = newVotes;
     }
+  },
+  beforeRouteLeave (to, from , next) {    
+    if(to.name === 'FeatureInfo'){
+      this.$bus.$emit('leaveToFeaturesInfo',this.storedVotes); 
+    } 
+
+    next();    
   },
   created() {
     this.$bus.$on('increment', (text) => {
     	this.text = text;
     })
-  }, 
+  },
 }
 </script>
 

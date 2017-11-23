@@ -27,7 +27,8 @@
               style="padding: 0px" 
               element="ul" 
               v-model="votes"       
-              :options="votingDragOptions"
+              :options="votingDragOptions"  
+              @change="onVotesCHanged"            
               > 
                 <transition-group 
                 type="transition" 
@@ -69,6 +70,7 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import draggable from 'vuedraggable'
 import featureList from './FeatureList'
 import featureInfo from './FeatureInfo'
@@ -76,7 +78,7 @@ import csharpVersions from '../data/features'
 import featuresInfo from '../data/featuresInfo'
 
 export default {
-  name: 'hello',
+  name: 'votes',
   components: {
     draggable,
     featureList,
@@ -85,28 +87,29 @@ export default {
   data () {
     return {
       csharpVersions,      
-      featuresInfo,
-      votes: [],
+      featuresInfo,            
+      votes: Vue.util.extend([], this.storedVotes),
       editable:true,
       delayedDragging:false,            
     }
   },
+  props: ['storedVotes'],
   methods:{    
     onRemoveFeatureFromVote (feature) {
-      const restoreFeatureInPosition = (feature) => {
-        const featureVersion = 
-          this.csharpVersions.find((v) => v.version === feature.version);
-        featureVersion.features.splice(feature.order, 0, feature);      
+      const restoreFeatureInPosition = f => {
+        const featureVersion = this.csharpVersions.find(v => v.version === f.version);
+        featureVersion.features.splice(feature.order, 0, f);      
       }
             
-      const removeFeatureFromVote = (feature) => {        
-        const featurePositionInVote = 
-          this.votes.findIndex((feat) => feat.name === feature.name);
+      const removeFeatureFromVote = f => {        
+        const featurePositionInVote = this.votes.findIndex(v => v.name === f.name);
         this.votes.splice(featurePositionInVote, 1);
       }
 
       restoreFeatureInPosition(feature);
-      removeFeatureFromVote(feature);      
+      removeFeatureFromVote(feature);    
+      
+      this.$emit('votesChanged', this.votes);
     },
     onShowFeatureInfo(featureName){
       this.$router.push({ 
@@ -116,6 +119,9 @@ export default {
           moreInfo:this.featuresInfo[featureName].moreInfo
         }
       })
+    },
+    onVotesCHanged() {
+      this.$emit('votesChanged', this.votes);
     },
     submitVote() {      
       const successCallback = (voterId) => {
@@ -156,7 +162,7 @@ export default {
         sort: false            
       };
     },
-  }
+  },
 }
 </script>
 
